@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cybersecurity Portfolio | Security Researcher</title>
+    <meta name="description"
+        content="Professional cybersecurity portfolio showcasing CTF write-ups, vulnerability research, and security expertise">
+
+    <!-- Preconnect to Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Fira Code Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Marked.js for Markdown Parsing -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <!-- Highlight.js for Syntax Highlighting -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="src/style.css">
+
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'cyber-dark': '#161616',
+                        'cyber-darker': '#0a0a0a',
+                        'cyber-green': '#00C834',
+                        'cyber-gray': '#1e1e1e',
+                        'cyber-light': '#e5e5e5',
+                    },
+                    fontFamily: {
+                        'mono': ['Fira Code', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-cyber-darker text-cyber-light" style="font-family: 'Fira Code', monospace;">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-cyber-dark/80 backdrop-blur-md border-b border-cyber-gray z-50">
+        <div class="max-w-6xl mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <a href="#home" class="text-xl font-bold text-cyber-green hover:text-green-400 transition-colors">
+                    <span class="font-mono">&gt;_</span> Portfolio
+                </a>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="nav-link" data-section="home">Home</a>
+                    <a href="#writeups" class="nav-link" data-section="writeups">Write-ups</a>
+                    <a href="#about" class="nav-link" data-section="about">About</a>
+                    <a href="#certifications" class="nav-link" data-section="certifications">Certifications</a>
+                    <a href="#contact" class="nav-link" data-section="contact">Contact</a>
+                </div>
+                <button id="mobile-menu-btn" class="md:hidden text-cyber-green">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="hidden md:hidden mt-4 pb-2 space-y-2">
+                <a href="#home" class="block nav-link" data-section="home">Home</a>
+                <a href="#writeups" class="block nav-link" data-section="writeups">Write-ups</a>
+                <a href="#about" class="block nav-link" data-section="about">About</a>
+                <a href="#certifications" class="block nav-link" data-section="certifications">Certifications</a>
+                <a href="#contact" class="block nav-link" data-section="contact">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Container -->
+    <div id="app-container" class="pt-20">
+
+        <!-- Home Section -->
+        <section id="home" class="min-h-screen flex items-center justify-center px-6">
+            <div class="max-w-4xl mx-auto text-center">
+                <div class="mb-8">
+                    <h1 class="text-5xl md:text-7xl font-bold mb-4 text-cyber-green"
+                        style="text-shadow: 0 0 20px #00C834;">
+                        Muhammad Dhafin Ramadhan
+                    </h1>
+                    <p class="text-xl md:text-2xl text-cyber-light/80 font-mono">
+                        &gt; SOC Analyst | CTF Player
+                    </p>
+                </div>
+
+                <p class="text-lg text-cyber-light/70 mb-8 max-w-2xl mx-auto leading-relaxed">
+                    🎓 I'm a student at Politeknik Negeri Bandung, with a strong interest in cybersecurity.
+                    Passionate about Web Development and Cybersecurity, currently focused on How to become a SOC
+                    Analyst.
+                </p>
+
+                <div class="flex justify-center gap-4 flex-wrap">
+                    <a href="#writeups" class="cyber-button">
+                        View Write-ups
+                        <svg class="w-5 h-5 ml-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                        </svg>
+                    </a>
+                    <a href="#contact" class="cyber-button-outline">
+                        Get in Touch
+                    </a>
+                </div>
+
+                <!-- Stats -->
+
+            </div>
+        </section>
+
+        <!-- Write-ups Section -->
+        <section id="writeups" class="min-h-screen py-12 px-6">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-center text-cyber-green"
+                    style="text-shadow: 0 0 15px #00C834;">
+                    CTF Write-ups
+                </h2>
+                <p class="text-center text-cyber-light/70 mb-12 max-w-2xl mx-auto">
+                    Detailed walkthroughs of CTF challenges, vulnerability analyses, and security research
+                </p>
+
+                <!-- Filters -->
+                <div class="flex justify-center gap-3 mb-12 flex-wrap">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="web">Web</button>
+                    <button class="filter-btn" data-filter="pwn">Pwn</button>
+                    <button class="filter-btn" data-filter="crypto">Crypto</button>
+                    <button class="filter-btn" data-filter="forensics">Forensics</button>
+                </div>
+
+                <!-- Write-ups Grid -->
+                <div id="writeups-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Dynamically populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Write-up Detail View (Hidden by default) -->
+        <section id="writeup-detail" class="hidden min-h-screen py-12 px-6">
+            <div class="max-w-4xl mx-auto">
+                <button id="back-to-writeups" class="cyber-button-outline mb-8">
+                    <svg class="w-5 h-5 mr-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M11 17l-5-5m0 0l5-5m-5 5h12"></path>
+                    </svg>
+                    Back to Write-ups
+                </button>
+
+                <div id="writeup-content" class="markdown-content">
+                    <!-- Markdown content will be rendered here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="min-h-screen py-12 px-6">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-4xl md:text-5xl font-bold mb-12 text-center text-cyber-green"
+                    style="text-shadow: 0 0 15px #00C834;">
+                    About Me
+                </h2>
+
+                <div class="grid md:grid-cols-2 gap-12">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-4 text-cyber-green">Background</h3>
+
+                        <p class="text-cyber-light/80 leading-relaxed">
+                            🔧 I have hands-on experience in network engineering, including Winbox, basic routing, and
+                            fusion splicing for fiber optic.
+                        </p>
+                        <p class="text-cyber-light/80 leading-relaxed mt-4">
+                            🚀 competing several CTFs for example, LKS Cybersecurity, and other National indonesian CTFs
+                            event.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h3 class="text-2xl font-bold mb-4 text-cyber-green">Skills</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center">
+                                <span class="text-cyber-green mr-2">▹</span>
+                                <span class="text-cyber-light">Reverse Engineering</span>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="text-cyber-green mr-2">▹</span>
+                                <span class="text-cyber-light">Memory Analysis</span>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="text-cyber-green mr-2">▹</span>
+                                <span class="text-cyber-light">Malware Analysis</span>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="text-cyber-green mr-2">▹</span>
+                                <span class="text-cyber-light">Images Analysis</span>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="text-cyber-green mr-2">▹</span>
+                                <span class="text-cyber-light">Web attacks Analysis</span>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="text-cyber-green mr-2">▹</span>
+                                <span class="text-cyber-light">Endpoint Analysis</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tools & Technologies -->
+                <div class="mt-12">
+                    <h3 class="text-2xl font-bold mb-6 text-center text-cyber-green">Tools & Technologies</h3>
+                    <div class="flex flex-wrap justify-center gap-3">
+                        <span class="tool-badge">Linux</span>
+                        <span class="tool-badge">Wireshark</span>
+                        <span class="tool-badge">IDA Pro</span>
+                        <span class="tool-badge">Ghidra</span>
+                        <span class="tool-badge">FTK Imager</span>
+                        <span class="tool-badge">Ericzimmerman Tools</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Certifications Section -->
+        <section id="certifications" class="min-h-screen py-12 px-6">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-center text-cyber-green"
+                    style="text-shadow: 0 0 15px #00C834;">
+                    Certifications
+                </h2>
+                <p class="text-center text-cyber-light/70 mb-12 max-w-2xl mx-auto">
+                    Professional certifications and CTF achievements showcasing expertise in cybersecurity
+                </p>
+
+                <!-- CTF Certificates -->
+                <div class="mb-16">
+                    <h3 class="text-3xl font-bold mb-6 text-cyber-green">CTF Certificates</h3>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="cert-card">
+                            <img src="certification/ctfcert/certificate.png" alt="CTF Certificate"
+                                class="w-full h-auto rounded-lg">
+                        </div>
+                        <div class="cert-card">
+                            <img src="certification/ctfcert/ctf.png" alt="CTF Achievement"
+                                class="w-full h-auto rounded-lg">
+                        </div>
+                        <div class="cert-card">
+                            <img src="certification/ctfcert/1756367479612.jpg" alt="CTF Certificate"
+                                class="w-full h-auto rounded-lg">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Competency Certificates -->
+                <div>
+                    <h3 class="text-3xl font-bold mb-6 text-cyber-green">Competency Certificates</h3>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="cert-card">
+                            <img src="certification/competentcert/1756360067724.jpg" alt="Competency Certificate"
+                                class="w-full h-auto rounded-lg">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="min-h-screen py-12 px-6">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-cyber-green" style="text-shadow: 0 0 15px #00C834;">
+                    Get In Touch
+                </h2>
+                <p class="text-cyber-light/70 mb-12 max-w-2xl mx-auto">
+                    Interested in collaboration, have questions, or just want to connect?
+                    Feel free to reach out through any of these platforms.
+                </p>
+
+                <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+                    <a href="https://github.com/dhafin5858" target="_blank" class="contact-card">
+                        <svg class="w-12 h-12 mb-3 mx-auto text-cyber-green" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                        </svg>
+                        <h3 class="font-bold">GitHub</h3>
+                        <p class="text-sm text-cyber-light/60 mt-1">@dhafin5858</p>
+                    </a>
+
+                    <a href="https://www.linkedin.com/in/muhammad-dhafin-ramadhan-18a091259/" target="_blank"
+                        class="contact-card">
+                        <svg class="w-12 h-12 mb-3 mx-auto text-cyber-green" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                        </svg>
+                        <h3 class="font-bold">LinkedIn</h3>
+                        <p class="text-sm text-cyber-light/60 mt-1">/in/muhammad-dhafin</p>
+                    </a>
+
+                    <a href="mailto:your.email@example.com" class="contact-card">
+                        <svg class="w-12 h-12 mb-3 mx-auto text-cyber-green" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                            </path>
+                        </svg>
+                        <h3 class="font-bold">Email</h3>
+                        <p class="text-sm text-cyber-light/60 mt-1">dhafin5858</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Lightbox Modal for Certificates -->
+    <div id="cert-lightbox" class="cert-lightbox hidden">
+        <span class="cert-lightbox-close">&times;</span>
+        <img class="cert-lightbox-content" id="cert-lightbox-img">
+    </div>
+
+    <!-- Footer -->
+    <footer class="border-t border-cyber-gray py-8 px-6 mt-20">
+        <div class="max-w-6xl mx-auto text-center text-cyber-light/50">
+            <p class="font-mono">&copy; 2025 Muhammad Dhafin Ramadhan. All rights reserved.</p>
+            <p class="text-sm mt-2">Built with ❤️ and lots of coffee</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="src/writeups.js"></script>
+    <script src="src/app.js"></script>
+</body>
+
+</html>
