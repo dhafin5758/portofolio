@@ -1,12 +1,12 @@
 // Write-ups configuration and data
 const writeups = [
     {
-        id: 'snowy-extension',
+        id: 'cacti',
         title: 'A Trail of Snow and Deception',
-        description: 'Forensic analysis of malicious VS Code extension that exfiltrates sensitive files using XOR encryption.',
+        description: 'analyzing network traffic.',
         date: '2025-12-23',
         category: 'forensics',
-        tags: ['Forensics', 'Malware Analysis', 'XOR Encryption'],
+        tags: ['Forensics', 'NetworkAnalysis', 'Wireshark'],
         file: 'writeups/ATrailofSnowandDeception.md'
     },
 
