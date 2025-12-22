@@ -1,9 +1,15 @@
 // Main Application Logic
 document.addEventListener('DOMContentLoaded', function () {
-    initNavigation();
-    initWriteups();
+    const isWriteupsPage = !!document.getElementById('writeups-grid');
+
+    if (isWriteupsPage) {
+        initWriteups();
+    } else {
+        initNavigation();
+        initSmoothScroll();
+    }
+
     initMobileMenu();
-    initSmoothScroll();
 
     // Initialize marked.js options
     if (typeof marked !== 'undefined') {
@@ -22,35 +28,51 @@ document.addEventListener('DOMContentLoaded', function () {
             gfm: true
         });
     }
+
+    // Shared features
+    initCertificateLightbox();
+    initAnimations();
 });
 
-// Navigation handling
+// Navigation handling (mainly for index.html internal sections)
 function initNavigation() {
-    const navLinks = document.querySelectorAll('.nav-link');
+    const navLinks = document.querySelectorAll('.nav-link[data-section]');
 
     navLinks.forEach(link => {
         link.addEventListener('click', function (e) {
-            e.preventDefault();
             const section = this.getAttribute('data-section');
-
-            // Handle write-ups special case
-            if (section === 'writeups') {
-                showWriteupsList();
-            } else {
+            if (section) {
+                e.preventDefault();
                 showSection(section);
+
+                // Update active state
+                navLinks.forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+
+                // Update URL without reload
+                history.pushState(null, null, `#${section}`);
             }
 
-            // Update active state
-            navLinks.forEach(l => l.classList.remove('active'));
-            this.classList.add('active');
-
             // Close mobile menu if open
-            document.getElementById('mobile-menu').classList.add('hidden');
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenu) mobileMenu.classList.add('hidden');
         });
     });
 
-    // Set initial active state
-    document.querySelector('.nav-link[data-section="home"]').classList.add('active');
+    // Handle initial hash if present
+    const hash = window.location.hash.substring(1);
+    if (hash && document.getElementById(hash)) {
+        showSection(hash);
+        const activeLink = document.querySelector(`.nav-link[data-section="${hash}"]`);
+        if (activeLink) {
+            navLinks.forEach(l => l.classList.remove('active'));
+            activeLink.classList.add('active');
+        }
+    } else if (!document.getElementById('writeups-grid')) {
+        // Set initial active state for home if not on writeups page
+        const homeLink = document.querySelector('.nav-link[data-section="home"]');
+        if (homeLink) homeLink.classList.add('active');
+    }
 }
 
 // Mobile menu toggle
@@ -58,14 +80,16 @@ function initMobileMenu() {
     const menuBtn = document.getElementById('mobile-menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');
 
-    menuBtn.addEventListener('click', () => {
-        mobileMenu.classList.toggle('hidden');
-    });
+    if (menuBtn && mobileMenu) {
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    }
 }
 
-// Smooth scroll handling
+// Smooth scroll handling for non-SPA links
 function initSmoothScroll() {
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    document.querySelectorAll('a[href^="#"]:not([data-section])').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             const href = this.getAttribute('href');
             if (href !== '#') {
@@ -79,10 +103,9 @@ function initSmoothScroll() {
     });
 }
 
-// Show specific section
+// Show specific section (for SPA-like behavior on index.html)
 function showSection(sectionId) {
-    // Hide all main sections
-    const sections = ['home', 'writeups', 'about', 'certifications', 'contact'];
+    const sections = ['home', 'about', 'certifications', 'contact'];
     sections.forEach(id => {
         const section = document.getElementById(id);
         if (section) {
@@ -90,10 +113,6 @@ function showSection(sectionId) {
         }
     });
 
-    // Hide writeup detail view
-    document.getElementById('writeup-detail').classList.add('hidden');
-
-    // Scroll to top
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -107,8 +126,10 @@ function initWriteups() {
 // Render write-ups grid
 function renderWriteups(filter = 'all') {
     const grid = document.getElementById('writeups-grid');
-    const filtered = filterWriteups(filter);
-    const sorted = sortWriteupsByDate(filtered);
+    if (!grid) return;
+
+    const filtered = typeof filterWriteups === 'function' ? filterWriteups(filter) : writeups;
+    const sorted = typeof sortWriteupsByDate === 'function' ? sortWriteupsByDate(filtered) : filtered;
 
     if (sorted.length === 0) {
         grid.innerHTML = '<p class="text-center text-cyber-light/60 col-span-full">No write-ups found in this category.</p>';
@@ -148,46 +169,31 @@ function setupFilters() {
     });
 }
 
-// Show write-ups list
-function showWriteupsList() {
-    document.getElementById('writeups').style.display = 'block';
-    document.getElementById('writeup-detail').classList.add('hidden');
-    document.getElementById('home').style.display = 'none';
-    document.getElementById('about').style.display = 'none';
-    document.getElementById('certifications').style.display = 'none';
-    document.getElementById('contact').style.display = 'none';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
 // Load and display a write-up
 async function loadWriteup(file, title) {
+    const writeupsSection = document.getElementById('writeups');
     const detailSection = document.getElementById('writeup-detail');
     const contentDiv = document.getElementById('writeup-content');
+
+    if (!detailSection || !contentDiv) return;
 
     // Show loading state
     contentDiv.innerHTML = '<div class="text-center py-12"><div class="loading mx-auto"></div><p class="mt-4 text-cyber-light/60">Loading write-up...</p></div>';
 
-    // Hide all other sections, show detail
-    document.getElementById('writeups').style.display = 'none';
-    document.getElementById('home').style.display = 'none';
-    document.getElementById('about').style.display = 'none';
-    document.getElementById('certifications').style.display = 'none';
-    document.getElementById('contact').style.display = 'none';
+    // Toggle visibility
+    if (writeupsSection) writeupsSection.classList.add('hidden');
     detailSection.classList.remove('hidden');
     detailSection.style.display = 'block';
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
     try {
         const response = await fetch(file);
-        if (!response.ok) {
-            throw new Error('Failed to load write-up');
-        }
+        if (!response.ok) throw new Error('Failed to load write-up');
 
         const markdown = await response.text();
         const html = marked.parse(markdown);
         contentDiv.innerHTML = html;
 
-        // Highlight code blocks
         if (typeof hljs !== 'undefined') {
             contentDiv.querySelectorAll('pre code').forEach((block) => {
                 hljs.highlightElement(block);
@@ -199,19 +205,25 @@ async function loadWriteup(file, title) {
             <div class="text-center py-12">
                 <h2 class="text-2xl text-red-400 mb-4">Error Loading Write-up</h2>
                 <p class="text-cyber-light/60 mb-4">${error.message}</p>
-                <button onclick="showWriteupsList()" class="cyber-button">Back to Write-ups</button>
+                <button onclick="location.reload()" class="cyber-button">Back to Write-ups</button>
             </div>
         `;
     }
 }
 
-// Setup back button for write-up detail view
 function setupWriteupDetailNav() {
     const backBtn = document.getElementById('back-to-writeups');
-    backBtn.addEventListener('click', showWriteupsList);
+    if (backBtn) {
+        backBtn.addEventListener('click', () => {
+            const writeupsSection = document.getElementById('writeups');
+            const detailSection = document.getElementById('writeup-detail');
+            if (writeupsSection) writeupsSection.classList.remove('hidden');
+            if (detailSection) detailSection.classList.add('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
 }
 
-// Format date helper
 function formatDate(dateStr) {
     const date = new Date(dateStr);
     return date.toLocaleDateString('en-US', {
@@ -221,68 +233,48 @@ function formatDate(dateStr) {
     });
 }
 
-// Intersection Observer for scroll animations
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -100px 0px'
-};
+function initAnimations() {
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
 
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('fade-in');
-        }
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('fade-in');
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.stat-card, .writeup-card, .contact-card, .cert-card').forEach(el => {
+        observer.observe(el);
     });
-}, observerOptions);
+}
 
-// Observe elements for animation
-document.querySelectorAll('.stat-card, .writeup-card, .contact-card').forEach(el => {
-    observer.observe(el);
-});
-
-// Certificate Lightbox Functionality
 function initCertificateLightbox() {
     const lightbox = document.getElementById('cert-lightbox');
     const lightboxImg = document.getElementById('cert-lightbox-img');
     const closeBtn = document.querySelector('.cert-lightbox-close');
 
-    // Add click handlers to all certificate images
+    if (!lightbox || !lightboxImg) return;
+
     document.querySelectorAll('.cert-card img').forEach(img => {
         img.addEventListener('click', function () {
             lightbox.classList.remove('hidden');
             lightbox.classList.add('show');
             lightboxImg.src = this.src;
-            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            document.body.style.overflow = 'hidden';
         });
     });
 
-    // Close lightbox when clicking the close button
-    if (closeBtn) {
-        closeBtn.addEventListener('click', closeLightbox);
-    }
-
-    // Close lightbox when clicking outside the image
-    lightbox.addEventListener('click', function (e) {
-        if (e.target === lightbox) {
-            closeLightbox();
-        }
-    });
-
-    // Close lightbox with Escape key
-    document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape' && lightbox.classList.contains('show')) {
-            closeLightbox();
-        }
-    });
-
-    function closeLightbox() {
+    const closeLightbox = () => {
         lightbox.classList.remove('show');
         lightbox.classList.add('hidden');
-        document.body.style.overflow = ''; // Re-enable scrolling
-    }
-}
+        document.body.style.overflow = '';
+    };
 
-// Initialize certificate lightbox when DOM is ready
-document.addEventListener('DOMContentLoaded', function () {
-    initCertificateLightbox();
-});
+    if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && lightbox.classList.contains('show')) closeLightbox(); });
+}

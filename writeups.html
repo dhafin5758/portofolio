@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Write-ups | Cybersecurity Portfolio</title>
+    <meta name="description" content="Detailed cybersecurity CTF write-ups and security research">
+
+    <!-- Preconnect to Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Fira Code Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Marked.js for Markdown Parsing -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <!-- Highlight.js for Syntax Highlighting -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="src/style.css">
+    <link rel="stylesheet" href="src/transitions.css">
+
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'cyber-dark': '#161616',
+                        'cyber-darker': '#0a0a0a',
+                        'cyber-green': '#00C834',
+                        'cyber-gray': '#1e1e1e',
+                        'cyber-light': '#e5e5e5',
+                    },
+                    fontFamily: {
+                        'mono': ['Fira Code', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-cyber-darker text-cyber-light" style="font-family: 'Fira Code', monospace;">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-cyber-dark/80 backdrop-blur-md border-b border-cyber-gray z-50">
+        <div class="max-w-6xl mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <a href="index.html#home"
+                    class="text-xl font-bold text-cyber-green hover:text-green-400 transition-colors">
+                    <span class="font-mono">&gt;_</span> Portfolio
+                </a>
+                <div class="hidden md:flex space-x-8">
+                    <a href="index.html#home" class="nav-link">Home</a>
+                    <a href="writeups.html" class="nav-link active">Write-ups</a>
+                    <a href="index.html#about" class="nav-link">About</a>
+                    <a href="index.html#certifications" class="nav-link">Certifications</a>
+                    <a href="index.html#contact" class="nav-link">Contact</a>
+                </div>
+                <button id="mobile-menu-btn" class="md:hidden text-cyber-green">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="hidden md:hidden mt-4 pb-2 space-y-2">
+                <a href="index.html#home" class="block nav-link">Home</a>
+                <a href="writeups.html" class="block nav-link active">Write-ups</a>
+                <a href="index.html#about" class="block nav-link">About</a>
+                <a href="index.html#certifications" class="block nav-link">Certifications</a>
+                <a href="index.html#contact" class="block nav-link">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Container -->
+    <div id="app-container" class="pt-20 page-transition">
+
+        <!-- Write-ups Section -->
+        <section id="writeups" class="min-h-screen py-12 px-6">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-center text-cyber-green"
+                    style="text-shadow: 0 0 15px #00C834;">
+                    CTF Write-ups
+                </h2>
+                <p class="text-center text-cyber-light/70 mb-12 max-w-2xl mx-auto">
+                    Detailed walkthroughs of CTF challenges, vulnerability analyses, and security research
+                </p>
+
+                <!-- Filters -->
+                <div class="flex justify-center gap-3 mb-12 flex-wrap">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="web">Web</button>
+                    <button class="filter-btn" data-filter="pwn">Pwn</button>
+                    <button class="filter-btn" data-filter="crypto">Crypto</button>
+                    <button class="filter-btn" data-filter="forensics">Forensics</button>
+                </div>
+
+                <!-- Write-ups Grid -->
+                <div id="writeups-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Dynamically populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Write-up Detail View (Hidden by default) -->
+        <section id="writeup-detail" class="hidden min-h-screen py-12 px-6">
+            <div class="max-w-4xl mx-auto">
+                <button id="back-to-writeups" class="cyber-button-outline mb-8">
+                    <svg class="w-5 h-5 mr-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M11 17l-5-5m0 0l5-5m-5 5h12"></path>
+                    </svg>
+                    Back to Write-ups
+                </button>
+
+                <div id="writeup-content" class="markdown-content">
+                    <!-- Markdown content will be rendered here -->
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="border-t border-cyber-gray py-8 px-6 mt-20">
+        <div class="max-w-6xl mx-auto text-center text-cyber-light/50">
+            <p class="font-mono">&copy; 2025 Muhammad Dhafin Ramadhan. All rights reserved.</p>
+            <p class="text-sm mt-2">Built with ❤️ and lots of coffee</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="src/writeups.js"></script>
+    <script src="src/app.js"></script>
+</body>
+
+</html>

@@ -28,6 +28,7 @@
 
     <!-- Custom Styles -->
     <link rel="stylesheet" href="src/style.css">
+    <link rel="stylesheet" href="src/transitions.css">
 
     <!-- Tailwind Config -->
     <script>
@@ -61,7 +62,7 @@
                 </a>
                 <div class="hidden md:flex space-x-8">
                     <a href="#home" class="nav-link" data-section="home">Home</a>
-                    <a href="#writeups" class="nav-link" data-section="writeups">Write-ups</a>
+                    <a href="writeups.html" class="nav-link">Write-ups</a>
                     <a href="#about" class="nav-link" data-section="about">About</a>
                     <a href="#certifications" class="nav-link" data-section="certifications">Certifications</a>
                     <a href="#contact" class="nav-link" data-section="contact">Contact</a>
@@ -76,7 +77,7 @@
             <!-- Mobile Menu -->
             <div id="mobile-menu" class="hidden md:hidden mt-4 pb-2 space-y-2">
                 <a href="#home" class="block nav-link" data-section="home">Home</a>
-                <a href="#writeups" class="block nav-link" data-section="writeups">Write-ups</a>
+                <a href="writeups.html" class="block nav-link">Write-ups</a>
                 <a href="#about" class="block nav-link" data-section="about">About</a>
                 <a href="#certifications" class="block nav-link" data-section="certifications">Certifications</a>
                 <a href="#contact" class="block nav-link" data-section="contact">Contact</a>
@@ -85,7 +86,7 @@
     </nav>
 
     <!-- Main Content Container -->
-    <div id="app-container" class="pt-20">
+    <div id="app-container" class="pt-40 page-transition">
 
         <!-- Home Section -->
         <section id="home" class="min-h-screen flex items-center justify-center px-6">
@@ -107,64 +108,20 @@
                 </p>
 
                 <div class="flex justify-center gap-4 flex-wrap">
-                    <a href="#writeups" class="cyber-button nav-link" data-section="writeups">
+                    <a href="writeups.html" class="cyber-button">
                         View Write-ups
                         <svg class="w-5 h-5 ml-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
                         </svg>
                     </a>
-                    <a href="#contact" class="cyber-button-outline nav-link" data-section="contact">
+                    <a href="#contact" class="cyber-button-outline">
                         Get in Touch
                     </a>
                 </div>
 
                 <!-- Stats -->
 
-            </div>
-        </section>
-
-        <!-- Write-ups Section -->
-        <section id="writeups" class="min-h-screen py-12 px-6">
-            <div class="max-w-6xl mx-auto">
-                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-center text-cyber-green"
-                    style="text-shadow: 0 0 15px #00C834;">
-                    CTF Write-ups
-                </h2>
-                <p class="text-center text-cyber-light/70 mb-12 max-w-2xl mx-auto">
-                    Detailed walkthroughs of CTF challenges, vulnerability analyses, and security research
-                </p>
-
-                <!-- Filters -->
-                <div class="flex justify-center gap-3 mb-12 flex-wrap">
-                    <button class="filter-btn active" data-filter="all">All</button>
-                    <button class="filter-btn" data-filter="web">Web</button>
-                    <button class="filter-btn" data-filter="pwn">Pwn</button>
-                    <button class="filter-btn" data-filter="crypto">Crypto</button>
-                    <button class="filter-btn" data-filter="forensics">Forensics</button>
-                </div>
-
-                <!-- Write-ups Grid -->
-                <div id="writeups-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <!-- Dynamically populated by JavaScript -->
-                </div>
-            </div>
-        </section>
-
-        <!-- Write-up Detail View (Hidden by default) -->
-        <section id="writeup-detail" class="hidden min-h-screen py-12 px-6">
-            <div class="max-w-4xl mx-auto">
-                <button id="back-to-writeups" class="cyber-button-outline mb-8">
-                    <svg class="w-5 h-5 mr-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M11 17l-5-5m0 0l5-5m-5 5h12"></path>
-                    </svg>
-                    Back to Write-ups
-                </button>
-
-                <div id="writeup-content" class="markdown-content">
-                    <!-- Markdown content will be rendered here -->
-                </div>
             </div>
         </section>
 
