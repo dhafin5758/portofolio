@@ -3,7 +3,7 @@ const writeups = [
     {
         id: 'cacti',
         title: 'A Trail of Snow and Deception',
-        description: 'analyzing network traffic.',
+        description: 'University CTF 2025: Tinsel Trouble.',
         date: '2025-12-23',
         category: 'forensics',
         tags: ['Forensics', 'NetworkAnalysis', 'Wireshark'],
