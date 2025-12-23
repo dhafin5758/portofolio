@@ -117,17 +117,35 @@
 
         <!-- Write-up Detail View (Hidden by default) -->
         <section id="writeup-detail" class="hidden min-h-screen py-12 px-6">
-            <div class="max-w-4xl mx-auto">
-                <button id="back-to-writeups" class="cyber-button-outline mb-8">
-                    <svg class="w-5 h-5 mr-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M11 17l-5-5m0 0l5-5m-5 5h12"></path>
-                    </svg>
-                    Back to Write-ups
-                </button>
+            <div class="max-w-[1600px] mx-auto flex flex-col lg:flex-row gap-24 xl:gap-40">
+                <!-- Side Navigation (Table of Contents) -->
+                <aside class="lg:w-72 flex-shrink-0 order-1">
+                    <div class="sticky top-24">
+                        <div class="flex items-center gap-2 mb-6">
+                            <div class="h-px flex-grow bg-cyber-green/30"></div>
+                            <h4 class="text-cyber-green font-bold uppercase tracking-widest text-xs">Navigation</h4>
+                            <div class="h-px w-4 bg-cyber-green/30"></div>
+                        </div>
+                        <nav id="writeup-toc" class="space-y-4 border-l border-cyber-gray pl-4">
+                            <!-- Populated by JS -->
+                        </nav>
+                    </div>
+                </aside>
 
-                <div id="writeup-content" class="markdown-content">
-                    <!-- Markdown content will be rendered here -->
+                <!-- Write-up Content -->
+                <div class="flex-grow order-2 max-w-4xl">
+                    <button id="back-to-writeups" class="cyber-button-outline mb-10 group">
+                        <svg class="w-5 h-5 mr-2 inline transition-transform group-hover:-translate-x-1" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M11 17l-5-5m0 0l5-5m-5 5h12"></path>
+                        </svg>
+                        Back to Write-ups
+                    </button>
+
+                    <div id="writeup-content" class="markdown-content">
+                        <!-- Markdown content will be rendered here -->
+                    </div>
                 </div>
             </div>
         </section>

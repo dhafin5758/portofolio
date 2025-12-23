@@ -199,6 +199,9 @@ async function loadWriteup(file, title) {
                 hljs.highlightElement(block);
             });
         }
+
+        // Generate Table of Contents
+        generateTOC(contentDiv);
     } catch (error) {
         console.error('Error loading write-up:', error);
         contentDiv.innerHTML = `
@@ -277,4 +280,79 @@ function initCertificateLightbox() {
     if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
     lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && lightbox.classList.contains('show')) closeLightbox(); });
+}
+
+// Table of Contents Generation
+function generateTOC(contentDiv) {
+    const tocContainer = document.getElementById('writeup-toc');
+    if (!tocContainer) return;
+
+    tocContainer.innerHTML = '';
+    const headings = contentDiv.querySelectorAll('h2, h3');
+
+    if (headings.length === 0) {
+        document.querySelector('aside').classList.add('lg:hidden');
+        return;
+    } else {
+        document.querySelector('aside').classList.remove('lg:hidden');
+    }
+
+    const observerOptions = {
+        root: null,
+        rootMargin: '-10% 0px -80% 0px',
+        threshold: 0
+    };
+
+    const tocObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const id = entry.target.id;
+                const tocLink = document.querySelector(`#writeup-toc a[href="#${id}"]`);
+                if (tocLink) {
+                    document.querySelectorAll('#writeup-toc a').forEach(a => a.classList.remove('active'));
+                    tocLink.classList.add('active');
+                }
+            }
+        });
+    }, observerOptions);
+
+    headings.forEach((heading, index) => {
+        // Create a URL-friendly ID if one doesn't exist
+        if (!heading.id) {
+            heading.id = heading.textContent
+                .toLowerCase()
+                .replace(/[^\w\s-]/g, '') // Remove non-word characters
+                .replace(/\s+/g, '-')     // Replace spaces with hyphens
+                + '-' + index;
+        }
+
+        const link = document.createElement('a');
+        link.href = `#${heading.id}`;
+        link.textContent = heading.textContent;
+        link.className = `toc-${heading.tagName.toLowerCase()}`;
+
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const target = document.getElementById(heading.id);
+            if (target) {
+                const offset = 100; // Account for fixed navbar
+                const bodyRect = document.body.getBoundingClientRect().top;
+                const elementRect = target.getBoundingClientRect().top;
+                const elementPosition = elementRect - bodyRect;
+                const offsetPosition = elementPosition - offset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+
+                // Set active states immediately on click
+                document.querySelectorAll('#writeup-toc a').forEach(a => a.classList.remove('active'));
+                link.classList.add('active');
+            }
+        });
+
+        tocContainer.appendChild(link);
+        tocObserver.observe(heading);
+    });
 }
