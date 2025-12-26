@@ -55,18 +55,18 @@
     <!-- Navigation -->
     <nav class="fixed top-0 w-full bg-cyber-dark/80 backdrop-blur-md border-b border-cyber-gray z-50">
         <div class="max-w-6xl mx-auto px-6 py-4">
-            <div class="flex justify-between items-center">
-                <a href="index.html#home"
-                    class="text-xl font-bold text-cyber-green hover:text-green-400 transition-colors">
-                    <span class="font-mono">&gt;_</span> Portfolio
-                </a>
-                <div class="hidden md:flex space-x-8">
+            <div class="flex items-center justify-between relative min-h-[32px]">
+                <div class="w-10 md:hidden"></div>
+
+                <div class="hidden md:flex absolute left-1/2 -translate-x-1/2 space-x-8 whitespace-nowrap">
                     <a href="index.html#home" class="nav-link">Home</a>
                     <a href="writeups.html" class="nav-link active">Write-ups</a>
                     <a href="index.html#about" class="nav-link">About</a>
                     <a href="index.html#certifications" class="nav-link">Certifications</a>
                     <a href="index.html#contact" class="nav-link">Contact</a>
                 </div>
+
+                <!-- Mobile Menu Button -->
                 <button id="mobile-menu-btn" class="md:hidden text-cyber-green">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -115,10 +115,8 @@
             </div>
         </section>
 
-        <!-- Write-up Detail View (Hidden by default) -->
         <section id="writeup-detail" class="hidden min-h-screen py-12 px-6">
             <div class="max-w-[1600px] mx-auto flex flex-col lg:flex-row gap-24 xl:gap-40">
-                <!-- Side Navigation (Table of Contents) -->
                 <aside class="lg:w-72 flex-shrink-0 order-1">
                     <div class="sticky top-24">
                         <div class="flex items-center gap-2 mb-6">
@@ -127,12 +125,10 @@
                             <div class="h-px w-4 bg-cyber-green/30"></div>
                         </div>
                         <nav id="writeup-toc" class="space-y-4 border-l border-cyber-gray pl-4">
-                            <!-- Populated by JS -->
                         </nav>
                     </div>
                 </aside>
 
-                <!-- Write-up Content -->
                 <div class="flex-grow order-2 max-w-4xl">
                     <button id="back-to-writeups" class="cyber-button-outline mb-10 group">
                         <svg class="w-5 h-5 mr-2 inline transition-transform group-hover:-translate-x-1" fill="none"
@@ -144,7 +140,6 @@
                     </button>
 
                     <div id="writeup-content" class="markdown-content">
-                        <!-- Markdown content will be rendered here -->
                     </div>
                 </div>
             </div>
